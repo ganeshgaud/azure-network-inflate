@@ -11,8 +11,6 @@ This project, **azure-network-inflate**, is designed to simplify and automate th
 
 ## Prerequisites
 
-## Prerequisites
-
 Before using this project, ensure you have the following:
 
 - An active Azure subscription.
@@ -51,6 +49,115 @@ Before using this project, ensure you have the following:
     uvicorn main:app --reload
     ```
 
-## Contributing
+# Azure VNet Provisioner API Set
 
-Contributions are welcome! Please fork the repository and submit a pull request.
+This API set provides endpoints for managing Azure Virtual Networks (VNets) and their subnets. It is secured using Azure Active Directory authentication.
+
+## Endpoints
+
+### 1. Root Endpoint
+**`GET /`**
+
+- **Description**: Returns a message indicating that the API is operational.
+- **Authentication**: Required.
+
+---
+
+### 2. Create or Update Virtual Network
+**`POST /vnet/create`**
+
+- **Description**: Creates or updates a virtual network based on the provided configuration.
+- **Authentication**: Required.
+
+| Parameter       | Type       | Required | Description                          | Example Data                          |
+|-----------------|------------|----------|--------------------------------------|---------------------------------------|
+| `name`          | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
+| `resourceGroup` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
+| `location`      | `string`   | Yes      | Azure region for the VNet.           | `"eastus"`                            |
+| `addressSpace`  | `list`     | Yes      | List of address spaces for the VNet. | `["10.0.0.0/16"]`                     |
+| `subnets`       | `list`     | No       | List of subnets for the VNet.        | `[{"name": "subnet1", "addressPrefix": "10.0.1.0/24"}]` |
+
+
+## Example Usage
+```bash
+    {
+        "resource_group": "demo-rg",
+        "vnet_name": "myVNet",
+        "location": "eastus",
+        "address_prefix": "10.0.0.0/16",
+        "subnets": [
+            {
+                "name": "subnet1",
+                "address_prefix": "10.0.1.0/24"
+            },
+            {
+                "name": "subnet2",
+                "address_prefix": "10.0.2.0/24"
+            },
+            {
+                "name": "subnet3",
+                "address_prefix": "10.0.3.0/24"
+            }
+        ]
+    }
+```
+---
+
+### 3. Retrieve VNet Data
+**`GET /vnets/data`**
+
+- **Description**: Retrieves details about a specific VNet or all VNets.
+- **Authentication**: Required.
+
+| Parameter   | Type       | Required | Description                          | Example Data |
+|-------------|------------|----------|--------------------------------------|--------------|
+| `vnetName`  | `string`   | No       | Name of the virtual network to fetch. | `"my-vnet"`  |
+
+---
+
+### 4. Delete a Subnet
+**`DELETE /vnet/subnet/delete`**
+
+- **Description**: Deletes a subnet from a specified VNet in a given resource group.
+- **Authentication**: Required.
+
+| Parameter       | Type       | Required | Description                          | Example Data                          |
+|-----------------|------------|----------|--------------------------------------|---------------------------------------|
+| `resourceGroup` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
+| `vnetName`      | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
+| `subnetName`    | `string`   | Yes      | Name of the subnet to delete.        | `"subnet1"`                           |
+
+## Example Usage
+```bash
+    {
+    "resource_group": "demo-rg",
+    "vnet_name": "myVNet",
+    "subnet_name": "subnet2"
+    }
+```
+---
+
+### 5. Delete a Virtual Network
+**`DELETE /vnet/delete`**
+
+- **Description**: Deletes a specified virtual network.
+- **Authentication**: Required.
+
+| Parameter       | Type       | Required | Description                          | Example Data                          |
+|-----------------|------------|----------|--------------------------------------|---------------------------------------|
+| `resourceGroup` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
+| `vnetName`      | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
+
+
+## Example Usage
+```bash
+    {
+    "resource_group": "demo-rg",
+    "vnet_name": "myVNet"
+    }
+```
+---
+
+## Authentication
+- All endpoints are secured using Azure Active Directory authentication. Ensure you provide a valid token when accessing the API.
+- [Reference for Authentication Mechanism -- https://intility.github.io/fastapi-azure-auth/single-tenant/azure_setup]
