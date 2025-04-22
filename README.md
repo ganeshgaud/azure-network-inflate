@@ -67,39 +67,36 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 **`POST /vnet/create`**
 
 - **Description**: Creates or updates a virtual network based on the provided configuration.
-- **Authentication**: Required.
-
 | Parameter       | Type       | Required | Description                          | Example Data                          |
 |-----------------|------------|----------|--------------------------------------|---------------------------------------|
-| `name`          | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
-| `resourceGroup` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
-| `location`      | `string`   | Yes      | Azure region for the VNet.           | `"eastus"`                            |
-| `addressSpace`  | `list`     | Yes      | List of address spaces for the VNet. | `["10.0.0.0/16"]`                     |
-| `subnets`       | `list`     | No       | List of subnets for the VNet.        | `[{"name": "subnet1", "addressPrefix": "10.0.1.0/24"}]` |
-
+| `resource_group` | `string`   | Yes      | Name of the resource group.          | `"demo-rg"`                           |
+| `vnet_name`      | `string`   | Yes      | Name of the virtual network.         | `"myVNet"`                            |
+| `location`       | `string`   | Yes      | Azure region for the VNet.           | `"eastus"`                            |
+| `address_prefix` | `string`   | Yes      | Address space for the VNet.          | `"10.0.0.0/16"`                       |
+| `subnets`        | `list`     | No       | List of subnets for the VNet.        | `[{"name": "subnet1", "address_prefix": "10.0.1.0/24"}]` |
 
 ## Example Usage
-```bash
-    {
-        "resource_group": "demo-rg",
-        "vnet_name": "myVNet",
-        "location": "eastus",
-        "address_prefix": "10.0.0.0/16",
-        "subnets": [
-            {
-                "name": "subnet1",
-                "address_prefix": "10.0.1.0/24"
-            },
-            {
-                "name": "subnet2",
-                "address_prefix": "10.0.2.0/24"
-            },
-            {
-                "name": "subnet3",
-                "address_prefix": "10.0.3.0/24"
-            }
-        ]
-    }
+```json
+{
+    "resource_group": "demo-rg",
+    "vnet_name": "myVNet",
+    "location": "eastus",
+    "address_prefix": "10.0.0.0/16",
+    "subnets": [
+        {
+            "name": "subnet1",
+            "address_prefix": "10.0.1.0/24"
+        },
+        {
+            "name": "subnet2",
+            "address_prefix": "10.0.2.0/24"
+        },
+        {
+            "name": "subnet3",
+            "address_prefix": "10.0.3.0/24"
+        }
+    ]
+}
 ```
 ---
 
@@ -111,7 +108,7 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 
 | Parameter   | Type       | Required | Description                          | Example Data |
 |-------------|------------|----------|--------------------------------------|--------------|
-| `vnetName`  | `string`   | No       | Name of the virtual network to fetch. | `"my-vnet"`  |
+| `vnet_name`  | `string`   | No       | Name of the virtual network to fetch. | `"my-vnet"`  |
 
 ---
 
@@ -123,9 +120,9 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 
 | Parameter       | Type       | Required | Description                          | Example Data                          |
 |-----------------|------------|----------|--------------------------------------|---------------------------------------|
-| `resourceGroup` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
-| `vnetName`      | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
-| `subnetName`    | `string`   | Yes      | Name of the subnet to delete.        | `"subnet1"`                           |
+| `resource_group` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
+| `vnet_name`      | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
+| `subnet_name`    | `string`   | Yes      | Name of the subnet to delete.        | `"subnet1"`                           |
 
 ## Example Usage
 ```bash
@@ -145,8 +142,8 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 
 | Parameter       | Type       | Required | Description                          | Example Data                          |
 |-----------------|------------|----------|--------------------------------------|---------------------------------------|
-| `resourceGroup` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
-| `vnetName`      | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
+| `resource_group` | `string`   | Yes      | Name of the resource group.          | `"my-resource-group"`                 |
+| `vnet_name`      | `string`   | Yes      | Name of the virtual network.         | `"my-vnet"`                           |
 
 
 ## Example Usage
