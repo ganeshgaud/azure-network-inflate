@@ -64,7 +64,7 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 ---
 
 ### 2. Create or Update Virtual Network
-**`POST /vnet/create`**
+**`POST /vnets`**
 - **Description**: Creates or updates a virtual network based on the provided configuration.
 
 | Parameter       | Type       | Required | Description                          | Example Data                          |
@@ -101,7 +101,7 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 ---
 
 ### 3. Retrieve VNet Data
-**`GET /vnets/data`**
+**`GET /vnets`**
 
 - **Description**: Retrieves details about a specific VNet or all VNets.
 - **Authentication**: Required.
@@ -113,7 +113,7 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 ---
 
 ### 4. Delete a Subnet
-**`DELETE /vnet/subnet/delete`**
+**`DELETE /vnets/subnet`**
 
 - **Description**: Deletes a subnet from a specified VNet in a given resource group.
 - **Authentication**: Required.
@@ -135,7 +135,7 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 ---
 
 ### 5. Delete a Virtual Network
-**`DELETE /vnet/delete`**
+**`DELETE /vnets`**
 
 - **Description**: Deletes a specified virtual network.
 - **Authentication**: Required.

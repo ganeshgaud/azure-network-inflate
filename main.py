@@ -46,6 +46,11 @@ app.add_middleware(
     )
 
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
+
 @app.get("/", dependencies=[Security(azure_scheme)])
 async def network_inflate_root():
     """
@@ -61,7 +66,7 @@ async def network_inflate_root():
     return {"message": "Azure network provisioning API in Action!"}
 
 
-@app.post("/vnet/create", dependencies=[Security(azure_scheme)])
+@app.post("/vnets", dependencies=[Security(azure_scheme)])
 async def create_virtual_network(request: VNetRequest):
     """
     Endpoint to create or update a virtual network.
@@ -87,7 +92,7 @@ async def create_virtual_network(request: VNetRequest):
     return result
 
 
-@app.get("/vnets/data", dependencies=[Security(azure_scheme)])
+@app.get("/vnets", dependencies=[Security(azure_scheme)])
 async def read_vnet_data(vnet_name: Optional[str] = Query(None, alias="vnetName")):
     """
     Endpoint to retrieve virtual network (VNet) data.
@@ -135,7 +140,7 @@ async def read_vnet_data(vnet_name: Optional[str] = Query(None, alias="vnetName"
         return JSONResponse(status_code=500, content={"message": "Internal server error"})
 
 
-@app.delete("/vnet/subnet/delete",dependencies=[Security(azure_scheme)])
+@app.delete("/vnets/subnet",dependencies=[Security(azure_scheme)])
 async def delete_vnet_subnet(req: SubnetDeleteRequest):
     """
     Deletes a subnet from a specified virtual network (VNet) in a given resource group.
@@ -162,7 +167,7 @@ async def delete_vnet_subnet(req: SubnetDeleteRequest):
     return result
 
 
-@app.delete("/vnet/delete", dependencies=[Security(azure_scheme)])
+@app.delete("/vnets", dependencies=[Security(azure_scheme)])
 async def delete_virtual_network(req: VNetDeleteRequest):
     """
     Deletes a specified virtual network.
