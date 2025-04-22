@@ -157,4 +157,3 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 
 ## Authentication
 - All endpoints are secured using Azure Active Directory authentication. Ensure you provide a valid token when accessing the API.
-- [Reference for Authentication Mechanism -- https://intility.github.io/fastapi-azure-auth/single-tenant/azure_setup]
