@@ -65,8 +65,8 @@ This API set provides endpoints for managing Azure Virtual Networks (VNets) and 
 
 ### 2. Create or Update Virtual Network
 **`POST /vnet/create`**
-
 - **Description**: Creates or updates a virtual network based on the provided configuration.
+
 | Parameter       | Type       | Required | Description                          | Example Data                          |
 |-----------------|------------|----------|--------------------------------------|---------------------------------------|
 | `resource_group` | `string`   | Yes      | Name of the resource group.          | `"demo-rg"`                           |
